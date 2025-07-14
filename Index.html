@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Body Weight Dose Calculator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #e57, #ffeb3b);
+    }
+    .calculator {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .calculator h2 {
+      text-align: center;
+      color: #212121;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .btn {
+      width: 100%;
+      background: #0072ff;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .btn:hover {
+      background: #005ec4;
+    }
+    .result {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 18px;
+      color: #333;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <h2>MRCOVS Vet Calculator </h2>
+    <div class="form-group">
+      <label for="weight">Body Weight (kg):</label>
+      <input type="number" id="weight" placeholder="Enter weight in kg">
+    </div>
+    <div class="form-group">
+      <label for="doseRate">Dose Rate (mg/kg):</label>
+      <input type="number" id="doseRate" placeholder="Enter dose rate">
+    </div>
+    <div class="form-group">
+      <label for="concentration">Concentration (mg/ml):</label>
+      <input type="number" id="concentration" placeholder="Enter concentration">
+    </div>
+    <button class="btn" onclick="calculateDose()">Calculate Dose (ml)</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculateDose() {
+      const weight = parseFloat(document.getElementById('weight').value);
+      const doseRate = parseFloat(document.getElementById('doseRate').value);
+      const concentration = parseFloat(document.getElementById('concentration').value);
+      const resultDiv = document.getElementById('result');
+
+      if (isNaN(weight) || isNaN(doseRate) || isNaN(concentration) || weight <=0 || doseRate <=0 || concentration <=0) {
+        resultDiv.textContent = "Please enter valid positive numbers in all fields.";
+        resultDiv.style.color = 'red';
+        return;
+      }
+
+      const dose = (weight * doseRate) / concentration;
+      resultDiv.textContent = `Required Dose: ${dose.toFixed(2)} ml`;
+      resultDiv.style.color = '#0072ff';
+    }
+  </script>
+
+</body>
+</html>
